@@ -1,3 +1,19 @@
+var Dead = (function () {
+    function Dead(j) {
+        this.jibby = j;
+    }
+    Dead.prototype.performBehaviour = function () {
+    };
+    return Dead;
+}());
+var Eating = (function () {
+    function Eating(j) {
+        this.jibby = j;
+    }
+    Eating.prototype.performBehaviour = function () {
+    };
+    return Eating;
+}());
 var Jibby = (function () {
     function Jibby(parent) {
         var _this = this;
@@ -6,27 +22,25 @@ var Jibby = (function () {
         this.x = 0;
         this.y = 220;
         this.hygiene = this.food = this.happyness = 50;
-        this.div.style.backgroundImage = "url('images/idle.png')";
         this.div.addEventListener("click", function () { return _this.onPet(); });
         document.getElementsByTagName("foodbutton")[0].addEventListener("click", function () { return _this.onEat(); });
         document.getElementsByTagName("washbutton")[0].addEventListener("click", function () { return _this.onWash(); });
+        this.behaviour = new Idle(this);
     }
     Jibby.prototype.update = function () {
-        this.hygiene -= 0.01;
-        this.food -= 0.02;
-        this.happyness -= 0.015;
+        this.behaviour.performBehaviour();
     };
     Jibby.prototype.onPet = function () {
         console.log("you clicked on jibby!");
-        this.div.style.backgroundImage = "url('images/happy.png')";
+        this.behaviour = new Petting(this);
     };
     Jibby.prototype.onWash = function () {
         console.log("washing jibby!");
-        this.div.style.backgroundImage = "url('images/washing.png')";
+        this.behaviour = new Washing(this);
     };
     Jibby.prototype.onEat = function () {
         console.log("jibby is eating!");
-        this.div.style.backgroundImage = "url('images/eating.gif')";
+        this.behaviour = new Eating(this);
     };
     return Jibby;
 }());
@@ -53,4 +67,43 @@ var Game = (function () {
 window.addEventListener("load", function () {
     var g = new Game();
 });
+var Idle = (function () {
+    function Idle(j) {
+        this.jibby = j;
+    }
+    Idle.prototype.performBehaviour = function () {
+        this.jibby.hygiene -= 0.01;
+        this.jibby.food -= 0.02;
+        this.jibby.happyness -= 0.015;
+        if (this.jibby.hygiene < 10) {
+            this.jibby.div.style.backgroundImage = "url('images/dirty.png')";
+        }
+        else if (this.jibby.food < 10) {
+            this.jibby.div.style.backgroundImage = "url('images/hungry.png')";
+        }
+        else if (this.jibby.happyness < 10) {
+            this.jibby.div.style.backgroundImage = "url('images/angry.png')";
+        }
+        else {
+            this.jibby.div.style.backgroundImage = "url('images/idle.png')";
+        }
+    };
+    return Idle;
+}());
+var Petting = (function () {
+    function Petting(j) {
+        this.jibby = j;
+    }
+    Petting.prototype.performBehaviour = function () {
+    };
+    return Petting;
+}());
+var Washing = (function () {
+    function Washing(j) {
+        this.jibby = j;
+    }
+    Washing.prototype.performBehaviour = function () {
+    };
+    return Washing;
+}());
 //# sourceMappingURL=main.js.map
