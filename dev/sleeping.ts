@@ -1,16 +1,20 @@
-class Eating implements Behaviour{
-    jibby:Jibby;
-    timer:number;
+class Sleeping implements Behaviour {
+    jibby: Jibby;
+    timer: number;
 
     constructor(j:Jibby){
         this.jibby = j;
-        this.jibby.food += 20;
         this.timer = 0;
     }
 
     performBehaviour(){
-        //eating img
-        this.jibby.div.style.backgroundImage = "url('images/eating.gif')";
+        //afbeelding voor sleeping
+        this.jibby.div.style.backgroundImage = "url('images/sleeping.png')";
+
+        // waarden verlagen per frame
+        this.jibby.hygiene -= 0.01;
+        this.jibby.food -= 0.02;
+        this.jibby.happyness -= 0.015;
 
         //timer to return to old behaviour
         if (this.timer < 180){
@@ -19,10 +23,6 @@ class Eating implements Behaviour{
         else{
             this.jibby.behaviour = new Idle(this.jibby);
         }
-
-        // waarden verlagen per frame
-        this.jibby.hygiene -= 0.01;
-        this.jibby.happyness -= 0.015;
     }
 
     onPet(){
@@ -36,6 +36,7 @@ class Eating implements Behaviour{
     }
 
     onEat(){
-        
+        this.jibby.div.style.backgroundImage = "url('images/angry.png')";
+        this.jibby.happyness -= 10;
     }
 }

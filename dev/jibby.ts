@@ -37,19 +37,19 @@ class Jibby {
     private onPet():void {
         console.log("you clicked on jibby!");
         // hier moet je de onPet functie van het gedrag aanroepen
-        this.behaviour = new Petting(this);
+        this.behaviour.onPet();
     }
 
     private onWash():void {
         console.log("washing jibby!");
         // hier moet je de onWash functie van het gedrag aanroepen
-        this.behaviour = new Washing(this);
+        this.behaviour.onWash();
     }
 
     private onEat():void {
         console.log("jibby is eating!");
         // hier moet je de onEat functie van het gedrag aanroepen
-        this.behaviour = new Eating(this);
+        this.behaviour.onEat();
     }
 
 
