@@ -12,11 +12,11 @@ class Dead implements Behaviour{
 
     onPet(){
         //revive jibby
-        this.jibby.div.style.backgroundImage = "url('images/zombie.png')";
+        this.jibby.behaviour = new Reviving(this.jibby);
     }
 
     onWash(){
-        
+
     }
 
     onEat(){

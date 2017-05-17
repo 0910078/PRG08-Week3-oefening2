@@ -1,3 +1,29 @@
+var Angry = (function () {
+    function Angry(j) {
+        this.jibby = j;
+        this.jibby.happyness -= 10;
+        this.timer = 0;
+    }
+    Angry.prototype.performBehaviour = function () {
+        this.jibby.div.style.backgroundImage = "url('images/angry.png')";
+        this.jibby.hygiene -= 0.01;
+        this.jibby.food -= 0.02;
+        this.jibby.happyness -= 0.015;
+        if (this.timer < 180) {
+            this.timer++;
+        }
+        else {
+            this.jibby.behaviour = new Idle(this.jibby);
+        }
+    };
+    Angry.prototype.onPet = function () {
+    };
+    Angry.prototype.onWash = function () {
+    };
+    Angry.prototype.onEat = function () {
+    };
+    return Angry;
+}());
 var Dead = (function () {
     function Dead(j) {
         this.jibby = j;
@@ -6,7 +32,7 @@ var Dead = (function () {
         this.jibby.div.style.backgroundImage = "url('images/dead.png')";
     };
     Dead.prototype.onPet = function () {
-        this.jibby.div.style.backgroundImage = "url('images/zombie.png')";
+        this.jibby.behaviour = new Reviving(this.jibby);
     };
     Dead.prototype.onWash = function () {
     };
@@ -32,12 +58,10 @@ var Eating = (function () {
         this.jibby.happyness -= 0.015;
     };
     Eating.prototype.onPet = function () {
-        this.jibby.div.style.backgroundImage = "url('images/angry.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Angry(this.jibby);
     };
     Eating.prototype.onWash = function () {
-        this.jibby.div.style.backgroundImage = "url('images/angry.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Angry(this.jibby);
     };
     Eating.prototype.onEat = function () {
     };
@@ -163,6 +187,57 @@ var Idle = (function () {
     };
     return Idle;
 }());
+var Reviving = (function () {
+    function Reviving(j) {
+        this.jibby = j;
+        this.timer = 0;
+    }
+    Reviving.prototype.performBehaviour = function () {
+        this.jibby.div.style.backgroundImage = "url('images/zombie.png')";
+        if (this.timer < 180) {
+            this.timer++;
+        }
+        else {
+            this.jibby.hygiene = 50;
+            this.jibby.food = 50;
+            this.jibby.happyness = 50;
+            this.jibby.behaviour = new Idle(this.jibby);
+        }
+    };
+    Reviving.prototype.onPet = function () {
+    };
+    Reviving.prototype.onWash = function () {
+    };
+    Reviving.prototype.onEat = function () {
+    };
+    return Reviving;
+}());
+var Sad = (function () {
+    function Sad(j) {
+        this.jibby = j;
+        this.jibby.happyness -= 15;
+        this.timer = 0;
+    }
+    Sad.prototype.performBehaviour = function () {
+        this.jibby.div.style.backgroundImage = "url('images/sad.png')";
+        this.jibby.hygiene -= 0.01;
+        this.jibby.food -= 0.02;
+        this.jibby.happyness -= 0.015;
+        if (this.timer < 180) {
+            this.timer++;
+        }
+        else {
+            this.jibby.behaviour = new Idle(this.jibby);
+        }
+    };
+    Sad.prototype.onPet = function () {
+    };
+    Sad.prototype.onWash = function () {
+    };
+    Sad.prototype.onEat = function () {
+    };
+    return Sad;
+}());
 var Sleeping = (function () {
     function Sleeping(j) {
         this.jibby = j;
@@ -181,23 +256,20 @@ var Sleeping = (function () {
         }
     };
     Sleeping.prototype.onPet = function () {
-        this.jibby.div.style.backgroundImage = "url('images/angry.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Angry(this.jibby);
     };
     Sleeping.prototype.onWash = function () {
-        this.jibby.div.style.backgroundImage = "url('images/angry.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Angry(this.jibby);
     };
     Sleeping.prototype.onEat = function () {
-        this.jibby.div.style.backgroundImage = "url('images/angry.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Angry(this.jibby);
     };
     return Sleeping;
 }());
 var Washing = (function () {
     function Washing(j) {
         this.jibby = j;
-        this.jibby.hygiene -= 25;
+        this.jibby.hygiene += 25;
         this.timer = 0;
     }
     Washing.prototype.performBehaviour = function () {
@@ -212,14 +284,12 @@ var Washing = (function () {
         this.jibby.happyness -= 0.015;
     };
     Washing.prototype.onPet = function () {
-        this.jibby.div.style.backgroundImage = "url('images/sad.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Sad(this.jibby);
     };
     Washing.prototype.onWash = function () {
     };
     Washing.prototype.onEat = function () {
-        this.jibby.div.style.backgroundImage = "url('images/sad.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Sad(this.jibby);
     };
     return Washing;
 }());

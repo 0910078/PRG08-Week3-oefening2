@@ -4,7 +4,7 @@ class Washing implements Behaviour{
 
     constructor(j:Jibby){
         this.jibby = j;
-        this.jibby.hygiene -= 25;
+        this.jibby.hygiene += 25;
         this.timer = 0;
     }
 
@@ -26,8 +26,7 @@ class Washing implements Behaviour{
     }
 
     onPet(){
-        this.jibby.div.style.backgroundImage = "url('images/sad.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Sad(this.jibby);
     }
 
     onWash(){
@@ -35,7 +34,6 @@ class Washing implements Behaviour{
     }
 
     onEat(){
-        this.jibby.div.style.backgroundImage = "url('images/sad.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Sad(this.jibby);
     }
 }

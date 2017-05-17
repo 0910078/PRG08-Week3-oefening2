@@ -26,13 +26,11 @@ class Eating implements Behaviour{
     }
 
     onPet(){
-        this.jibby.div.style.backgroundImage = "url('images/angry.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Angry(this.jibby);
     }
 
     onWash(){
-        this.jibby.div.style.backgroundImage = "url('images/angry.png')";
-        this.jibby.happyness -= 10;
+        this.jibby.behaviour = new Angry(this.jibby);
     }
 
     onEat(){

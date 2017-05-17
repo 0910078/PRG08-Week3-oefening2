@@ -1,15 +1,16 @@
-class Sleeping implements Behaviour {
+class Sad implements Behaviour {
     jibby: Jibby;
     timer: number;
 
     constructor(j:Jibby){
         this.jibby = j;
+        this.jibby.happyness -= 15;
         this.timer = 0;
     }
 
     performBehaviour(){
-        //afbeelding voor sleeping
-        this.jibby.div.style.backgroundImage = "url('images/sleeping.png')";
+        //afbeelding voor sad
+        this.jibby.div.style.backgroundImage = "url('images/sad.png')";
 
         // waarden verlagen per frame
         this.jibby.hygiene -= 0.01;
@@ -26,14 +27,14 @@ class Sleeping implements Behaviour {
     }
 
     onPet(){
-        this.jibby.behaviour = new Angry(this.jibby);
+
     }
 
     onWash(){
-        this.jibby.behaviour = new Angry(this.jibby);
+        
     }
 
     onEat(){
-        this.jibby.behaviour = new Angry(this.jibby);
+        
     }
 }
